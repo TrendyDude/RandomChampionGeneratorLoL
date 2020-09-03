@@ -26,11 +26,9 @@
 				var champs = []
 				var data = allChamps.data
 				for (champion in data) {
-					console.log(champion.toString());
 					champs.push(champion["id"].toString());
 					
 				}
-				data.parse()
 				var selectedChamp = champs[Math.floor(Math.random() * (champs.length - 1))]
 				image_location.src = "https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/" + selectedChamp +".png";
 
