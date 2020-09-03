@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="RandChamp.css">
+	<title> Random Champion Generator </title>
+</head>
+<script src= 
+"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> 
+    </script> 
+<body>
+	<div class='Title'>
+		<h1> Random Champion Generator </h1>
+		<h2> for <h2>
+		<img src= "Images/lol.png" alt="League of Legends" width= "300" height= "150">
+	</div>
+	<div class="RandomChampGenerator" id="champion_generator">
+		<img src= "default_image.png" alt="Nothing Yet" width="400" height="400" id = "Champion">
+		<input type= "button" id="Randomize" value= "Generate Random Champion"/>
+		<h5 content="Hello"></h5>
+	</div>
+<script type="text/javascript" language="javascript">
+	$(document).ready(function() {
+		$("#Randomize").click(function(event) {
+			$.getJSON("https://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json", function(champ) {
+				var image_location = document.getElementById("Champion");
+				var champs = []
+				var data = champ.data
+				for (champion in data) {
+					console.log(champion.toString());
+					champs.push(champion.toString());
+					
+				}
+				var selectedChamp = champs[Math.floor(Math.random() * (champs.length - 1))]
+				image_location.src = "https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/" + selectedChamp +".png";
+
+				var tag = document.getElementById("build_link")
+				if (tag != null) {
+					tag.href = "https://u.gg/lol/champions/" + selectedChamp +"/build";
+				} else {
+					tag = document.createElement("a");
+					tag.id = "build_link";
+					tag.href = "https://u.gg/lol/champions/" + selectedChamp +"/build";
+					tag.target = "_blank";
+					var parent = document.getElementById("champion_generator");
+					tag.append(image_location);
+					parent.append(tag);
+				}
+				
+			});	
+		});
+	});
+</script>
+</body>
+</html>
