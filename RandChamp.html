@@ -21,15 +21,16 @@
 <script type="text/javascript" language="javascript">
 	$(document).ready(function() {
 		$("#Randomize").click(function(event) {
-			$.getJSON("https://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json", function(champ) {
+			$.getJSON("https://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json", function(allChamps) {
 				var image_location = document.getElementById("Champion");
 				var champs = []
-				var data = champ.data
+				var data = allChamps.data
 				for (champion in data) {
 					console.log(champion.toString());
-					champs.push(champion.toString());
+					champs.push(champion["id"].toString());
 					
 				}
+				data.parse()
 				var selectedChamp = champs[Math.floor(Math.random() * (champs.length - 1))]
 				image_location.src = "https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/" + selectedChamp +".png";
 
