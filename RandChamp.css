@@ -12,6 +12,7 @@ body {
 
 }
 
-.RandomChampGenerator img {
-	align-self: center;
+.RandomChampGenerator {
+	vertical-align: middle;
+	text-align: center;
 }

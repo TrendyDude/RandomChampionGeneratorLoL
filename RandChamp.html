@@ -13,8 +13,8 @@
 		<h2> for <h2>
 		<img src= "Images/lol.png" alt="League of Legends" width= "300" height= "150">
 	</div>
+
 	<div class="RandomChampGenerator" id="champion_generator">
-		<img width="400" height="400" id = "Champion">
 		<input type= "button" id="Randomize" value= "Generate Random Champion"/>
 		<h5 content="Hello"></h5>
 	</div>
@@ -45,8 +45,16 @@
 		});	
 		$("#Randomize").click(function(event) {
 			var image_location = document.getElementById("Champion");
+			if (image_location == null) {
+				var newImage = document.createElement("img");
+				newImage.id = "Champion"
+				var parent = document.getElementById("champion_generator");
+				parent.append(newImage);
+				image_location = newImage;
+
+			}
 			var selectedChamp = champDictionary[Math.floor(Math.random() * (champDictionary.length - 1))]
-			image_location.src = "https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/" + selectedChamp +".png";
+			image_location.src = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + selectedChamp +"_0.jpg";
 			var tag = document.getElementById("build_link")
 			if (tag != null) {
 				tag.href = "https://u.gg/lol/champions/" + selectedChamp +"/build";
