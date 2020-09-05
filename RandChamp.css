@@ -1,7 +1,14 @@
 
+body {
+	
+	align-items: center;
+	
+}
 .Title {
 	text-align: center;
 	border-bottom: solid gray 1px;
+
+	height: 250px;
 
 }
 

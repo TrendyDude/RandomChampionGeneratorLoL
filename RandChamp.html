@@ -14,38 +14,53 @@
 		<img src= "Images/lol.png" alt="League of Legends" width= "300" height= "150">
 	</div>
 	<div class="RandomChampGenerator" id="champion_generator">
-		<img src= "default_image.png" alt="Nothing Yet" width="400" height="400" id = "Champion">
+		<img width="400" height="400" id = "Champion">
 		<input type= "button" id="Randomize" value= "Generate Random Champion"/>
 		<h5 content="Hello"></h5>
 	</div>
 <script type="text/javascript" language="javascript">
 	$(document).ready(function() {
-		$("#Randomize").click(function(event) {
-			$.getJSON("https://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json", function(allChamps) {
-				var image_location = document.getElementById("Champion");
-				var champs = []
-				var data = allChamps.data
-				for (champion in data) {
-					champs.push(champion["id"].toString());
-					
-				}
-				var selectedChamp = champs[Math.floor(Math.random() * (champs.length - 1))]
-				image_location.src = "https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/" + selectedChamp +".png";
+		var champs = [];
+		var champDictionary = [];
+		var champsByTag = [];
 
-				var tag = document.getElementById("build_link")
-				if (tag != null) {
-					tag.href = "https://u.gg/lol/champions/" + selectedChamp +"/build";
-				} else {
-					tag = document.createElement("a");
-					tag.id = "build_link";
-					tag.href = "https://u.gg/lol/champions/" + selectedChamp +"/build";
-					tag.target = "_blank";
-					var parent = document.getElementById("champion_generator");
-					tag.append(image_location);
-					parent.append(tag);
+		$.getJSON("https://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json", function(allChamps) {
+			var data = allChamps.data;
+			for (champion in data) {
+				var entry = {"Name" : champion, "tags": allChamps.data[champion]["tags"]};
+				champs[champion] = entry;
+				champDictionary.push(champion);
+	
+				for (var i = 0; i <  allChamps.data[champion]["tags"].length; i++) {
+					var tag = allChamps.data[champion]["tags"][i];
+					if (tag in champsByTag) {
+						champsByTag[tag].push(champion);
+					} else {
+						champsByTag[tag] = [];
+					}
 				}
+					
+			}
+			console.log(champsByTag);
+		});	
+		$("#Randomize").click(function(event) {
+			var image_location = document.getElementById("Champion");
+			var selectedChamp = champDictionary[Math.floor(Math.random() * (champDictionary.length - 1))]
+			image_location.src = "https://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/" + selectedChamp +".png";
+			var tag = document.getElementById("build_link")
+			if (tag != null) {
+				tag.href = "https://u.gg/lol/champions/" + selectedChamp +"/build";
+			} else {
+				tag = document.createElement("a");
+				tag.id = "build_link";
+				tag.href = "https://u.gg/lol/champions/" + selectedChamp +"/build";
+				tag.target = "_blank";
+				var parent = document.getElementById("champion_generator");
+				tag.append(image_location);
+				parent.append(tag);
+			}
 				
-			});	
+			
 		});
 	});
 </script>
