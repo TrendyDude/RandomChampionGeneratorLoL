@@ -1,18 +1,36 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<link rel="stylesheet" type="text/css" href="RandChamp.css">
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title> Random Champion Generator </title>
 </head>
-<script src= 
-"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> 
-    </script> 
+<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script> 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <body>
 	<div class='Title'>
 		<h1> Random Champion Generator </h1>
 		<h2> for <h2>
 		<img src= "Images/lol.png" alt="League of Legends" width= "300" height= "150">
 	</div>
+	<div class="dropdown">
+  		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   		 Filter By Role
+  		</button>
+  		<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+    		<button class="dropdown-item" id="Role1" value="Assassin">Assassin</button>
+    		<button class="dropdown-item" id="Role2" value="Fighter">Fighter</button>
+    		<button class="dropdown-item" id="Role3" value="Mage">Mage</button>
+    		<button class="dropdown-item" id="Role4" value="Marksman">Marksman</button>
+    		<button class="dropdown-item" id="Role5" value="Support">Support</button>
+    		<button class="dropdown-item" id="Role6" value="Tank">Tank</button>
+  		</div>
+</div>
 
 	<div class="RandomChampGenerator" id="champion_generator">
 		<input type= "button" id="Randomize" value= "Generate Random Champion"/>
@@ -44,6 +62,7 @@
 			console.log(champsByTag);
 		});	
 		$("#Randomize").click(function(event) {
+			document.cookie = "promo_shown=1; Max-Age=2600000; Secure";
 			var image_location = document.getElementById("Champion");
 			if (image_location == null) {
 				var newImage = document.createElement("img");
@@ -53,7 +72,14 @@
 				image_location = newImage;
 
 			}
-			var selectedChamp = champDictionary[Math.floor(Math.random() * (champDictionary.length - 1))]
+			var selectedChamp;
+			if (document.getElementById("dropdownMenu2").innerHTML != "Filter By Role") {
+				var tag = document.getElementById("dropdownMenu2").innerHTML
+				selectedChamp = champsByTag[tag][Math.floor(Math.random() * (champsByTag[tag].length - 1))];
+			} else {
+				selectedChamp = champDictionary[Math.floor(Math.random() * (champsByTag[tag].length - 1))];
+			}
+			
 			image_location.src = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + selectedChamp +"_0.jpg";
 			var tag = document.getElementById("build_link")
 			if (tag != null) {
@@ -63,12 +89,39 @@
 				tag.id = "build_link";
 				tag.href = "https://u.gg/lol/champions/" + selectedChamp +"/build";
 				tag.target = "_blank";
+
 				var parent = document.getElementById("champion_generator");
 				tag.append(image_location);
 				parent.append(tag);
 			}
+
 				
 			
+		});
+
+		$("#Role1").click(function(event) {
+			var fired_button = $(this).val();
+    		document.getElementById("dropdownMenu2").innerHTML = fired_button;
+		});
+		$("#Role2").click(function(event) {
+			var fired_button = $(this).val();
+    		document.getElementById("dropdownMenu2").innerHTML = fired_button;
+		});
+		$("#Role3").click(function(event) {
+			var fired_button = $(this).val();
+    		document.getElementById("dropdownMenu2").innerHTML = fired_button;
+		});
+		$("#Role4").click(function(event) {
+			var fired_button = $(this).val();
+    		document.getElementById("dropdownMenu2").innerHTML = fired_button;
+		});
+		$("#Role5").click(function(event) {
+			var fired_button = $(this).val();
+    		document.getElementById("dropdownMenu2").innerHTML = fired_button;
+		});
+		$("#Role6").click(function(event) {
+			var fired_button = $(this).val();
+    		document.getElementById("dropdownMenu2").innerHTML = fired_button;
 		});
 	});
 </script>
