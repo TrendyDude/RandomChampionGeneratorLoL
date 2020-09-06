@@ -22,7 +22,8 @@
   		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
    		 Filter By Role
   		</button>
-  		<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+  		<div class="dropdown-menu" aria-labelledby="dropdownMenu2" id='tagbuttons'>
+  			<button class="dropdown-item" id="Role0" value="Filter By Role" display='none'>Filter by Role</button>
     		<button class="dropdown-item" id="Role1" value="Assassin">Assassin</button>
     		<button class="dropdown-item" id="Role2" value="Fighter">Fighter</button>
     		<button class="dropdown-item" id="Role3" value="Mage">Mage</button>
@@ -99,32 +100,53 @@
 				
 			
 		});
+		$("#Role0").click(function(event) {
+			var fired_button = $(this).val();
+			changeView("Role0");
+    		document.getElementById("dropdownMenu2").innerHTML = fired_button;
+		});
 
 		$("#Role1").click(function(event) {
 			var fired_button = $(this).val();
+			changeView("Role1");
     		document.getElementById("dropdownMenu2").innerHTML = fired_button;
 		});
 		$("#Role2").click(function(event) {
 			var fired_button = $(this).val();
+			changeView("Role2");
     		document.getElementById("dropdownMenu2").innerHTML = fired_button;
 		});
 		$("#Role3").click(function(event) {
 			var fired_button = $(this).val();
+			changeView("Role3");
     		document.getElementById("dropdownMenu2").innerHTML = fired_button;
 		});
 		$("#Role4").click(function(event) {
 			var fired_button = $(this).val();
+			changeView("Role4");
     		document.getElementById("dropdownMenu2").innerHTML = fired_button;
 		});
 		$("#Role5").click(function(event) {
 			var fired_button = $(this).val();
+			changeView("Role5");
     		document.getElementById("dropdownMenu2").innerHTML = fired_button;
 		});
 		$("#Role6").click(function(event) {
 			var fired_button = $(this).val();
+			changeView("Role6");
     		document.getElementById("dropdownMenu2").innerHTML = fired_button;
 		});
 	});
+	function changeView(buttonToHide) {
+		var buttons = document.getElementById("tagbuttons");
+		for (var i = 0; i < buttons.children.length; i++) {
+			if(buttons.children[i].id == buttonToHide) {
+				buttons.children[i].style.display = 'none';
+			} else {
+				buttons.children[i].style.display = 'block';
+			}
+		}
+	}
 </script>
 </body>
 </html>
