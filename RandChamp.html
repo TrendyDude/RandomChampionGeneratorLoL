@@ -79,6 +79,7 @@
 			} else {
 				selectedChamp = champDictionary[Math.floor(Math.random() * (champsByTag[tag].length - 1))];
 			}
+			console.log("Current Champion: " + selectedChamp);
 			
 			image_location.src = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + selectedChamp +"_0.jpg";
 			var tag = document.getElementById("build_link")
